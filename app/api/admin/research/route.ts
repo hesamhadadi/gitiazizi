@@ -1,0 +1,20 @@
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { connectDB } from "@/lib/db";
+import Research from "@/models/Research";
+
+export async function GET() {
+  await connectDB();
+  const research = await Research.find({}).sort({ createdAt: -1 });
+  return NextResponse.json(research);
+}
+
+export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  await connectDB();
+  const data = await req.json();
+  const doc = await Research.create(data);
+  return NextResponse.json(doc);
+}
