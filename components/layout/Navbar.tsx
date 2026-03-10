@@ -24,20 +24,27 @@ export default function Navbar() {
   if (pathname.startsWith("/admin")) return null;
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-ink/90 backdrop-blur-md border-b border-white/5" : ""}`}>
-      <nav className="flex items-center justify-between px-8 py-6 md:px-16">
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+      <div
+        className={`absolute inset-0 pointer-events-none transition-all duration-500 ${
+          scrolled
+            ? "bg-ink/85 backdrop-blur-md border-b border-white/10"
+            : "bg-ink/28 backdrop-blur-[2px] border-b border-white/5"
+        }`}
+      />
+
+      <nav className="relative flex items-center justify-between px-8 py-6 md:px-16">
         <Link href="/" className="font-display text-xl tracking-[0.2em] text-ivory uppercase">
           Giti Azizi
         </Link>
 
-        {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-10">
           {links.map(l => (
             <Link
               key={l.href}
               href={l.href}
               className={`text-[10px] tracking-[0.35em] uppercase font-body transition-colors duration-200 ${
-                pathname === l.href ? "text-crimson" : "text-ash hover:text-ivory"
+                pathname === l.href ? "text-crimson" : "text-ivory/90 hover:text-ivory"
               }`}
             >
               {l.label}
@@ -45,7 +52,6 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Mobile menu button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden flex flex-col gap-1.5 p-2"
@@ -57,7 +63,6 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden bg-ink/95 backdrop-blur-md px-8 pb-8 flex flex-col gap-6">
           {links.map(l => (

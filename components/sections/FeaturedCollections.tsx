@@ -1,38 +1,33 @@
 import Image from "next/image";
 import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { getPublishedCollections } from "@/lib/public-content";
+import { unstable_noStore as noStore } from "next/cache";
 
-const featured = [
-  {
-    slug: "princess-irulan",
-    title: "Princess Irulan",
-    season: "Winter 2025",
-    tag: "Published · Moevir Paris",
-    cover: "/images/princess-irulan/06.jpg",
-    span: "lg:col-span-2 lg:row-span-2",
-    imgClass: "h-[60vh] lg:h-full",
-  },
-  {
-    slug: "fallen-garden",
-    title: "Fallen Garden",
-    season: "Summer 2024",
-    tag: "Womenswear",
-    cover: "/images/fallen-garden/09.jpg",
-    span: "lg:col-span-1",
-    imgClass: "h-[45vh]",
-  },
-  {
-    slug: "tarchi-vests",
-    title: "Tarchi Recycled Vests",
-    season: "Winter 2024",
-    tag: "Sustainable",
-    cover: "/images/tarchi-vests/05.jpg",
-    span: "lg:col-span-1",
-    imgClass: "h-[45vh]",
-  },
-];
+export default async function FeaturedCollections() {
+  noStore();
 
-export default function FeaturedCollections() {
+  let collections = [] as Awaited<ReturnType<typeof getPublishedCollections>>;
+  try {
+    collections = await getPublishedCollections();
+  } catch {
+    collections = [];
+  }
+
+  const picks = (collections.filter(c => c.featured).length ? collections.filter(c => c.featured) : collections).slice(0, 3);
+
+  const featured = picks.map((item, index) => ({
+    slug: item.slug,
+    title: item.title,
+    season: [item.season, item.year].filter(Boolean).join(" "),
+    tag: item.tag || "Collection",
+    cover: item.coverImage || item.images?.[0] || "/images/princess-irulan/06.jpg",
+    span: index === 0 ? "lg:col-span-2 lg:row-span-2" : "lg:col-span-1",
+    imgClass: index === 0 ? "h-[60vh] lg:h-full" : "h-[45vh]",
+  }));
+
+  if (!featured.length) return null;
+
   return (
     <section className="px-8 md:px-16 py-24 md:py-32">
       <ScrollReveal>
