@@ -27,23 +27,23 @@ A modern fashion portfolio website for **Giti Azizi** with a cinematic visual st
 
 ### Home
 
-![Home](./public/screenshots/home.png)
+![Home](./public/screenshots/home.jpg)
 
 ### Collections
 
-![Collections](./public/screenshots/collections.png)
+![Collections](./public/screenshots/collections.jpg)
 
 ### Research
 
-![Research](./public/screenshots/research.png)
+![Research](./public/screenshots/research.jpg)
 
 ### CV
 
-![CV](./public/screenshots/cv.png)
+![CV](./public/screenshots/cv.jpg)
 
 ### Contact
 
-![Contact](./public/screenshots/contact.png)
+![Contact](./public/screenshots/contact.jpg)
 
 ## Main Routes
 
