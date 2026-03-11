@@ -74,27 +74,3 @@ npm install
 npm run dev
 ```
 
-Create `.env.local` with:
-
-```env
-MONGODB_URI=your_mongodb_connection_string
-ADMIN_PASSWORD=your_admin_password
-NEXTAUTH_SECRET=your_long_random_secret
-NEXTAUTH_URL=http://localhost:3000
-SEED_SECRET=your_seed_secret
-```
-
-## Seed Data (Optional)
-
-```bash
-curl -X POST http://localhost:3000/api/admin/seed \
-  -H "x-seed-secret: <your-seed-secret>"
-```
-
-## Deployment Notes
-
-1. Push repository to GitHub
-2. Import project in Vercel
-3. Set all environment variables in Vercel Project Settings
-4. Deploy
-5. Call seed endpoint for initial content
